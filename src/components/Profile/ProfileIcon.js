@@ -33,7 +33,7 @@ class ProfileIcon extends Component {
             </DropdownToggle>
             <DropdownMenu 
                 className='b--transparent shadow-5' 
-                style={{maginTop: '20px', backgroundColor: 'rgba(255,255,255,0.5)'}}>
+                style={{marginTop: '20px', backgroundColor: 'rgba(255,255,255,0.5)'}}>
               <DropdownItem>View Profile</DropdownItem>
               <DropdownItem>Sign Out</DropdownItem>
             </DropdownMenu>
