@@ -21,7 +21,7 @@ class ProfileIcon extends Component {
     render() {
         return (
             <div className="pa4 tc">
-            <Dropdown direction="right" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle
                 tag="span"
                 data-toggle="dropdown"
@@ -32,6 +32,7 @@ class ProfileIcon extends Component {
                     className="br-100 ba h3 w3 dib" alt="avatar"/>
             </DropdownToggle>
             <DropdownMenu 
+                right
                 className='b--transparent shadow-5' 
                 style={{marginTop: '20px', backgroundColor: 'rgba(255,255,255,0.5)'}}>
               <DropdownItem>View Profile</DropdownItem>
