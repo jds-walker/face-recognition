@@ -45,6 +45,39 @@ class App extends Component {
     this.state = initialState;
   }
 
+  componentDidMount( ) {
+    const token = window.sessionStorage.getItem('key');
+    if (token) {
+      fetch('http://localhost:3000/signin', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data && data.id) {
+            fetch(`http://localhost:3000/profile/${data.id}`, {
+              method: 'get',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+              }
+            })
+              .then( resp => resp.json())
+              .then( user => {
+                if ( user && user.email ) {
+                  this.loadUser(user)
+                  this.onRouteChange('home')
+                }
+              })
+          }
+        })
+        .catch(console.log)
+    }
+  }
+
   loadUser = (data) => {
     this.setState({user: {
       id: data.id,
@@ -80,7 +113,11 @@ class App extends Component {
     this.setState({imageUrl: this.state.input});
       fetch('http://localhost:3000/imageurl', {
         method: 'post',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': window.sessionStorage.getItem('token')
+
+        },
         body: JSON.stringify({
           input: this.state.input
         })
@@ -90,7 +127,8 @@ class App extends Component {
         if (response) {
           fetch('http://localhost:3000/image', {
             method: 'put',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json',
+          'Authorization': window.sessionStorage.getItem('token')},
             body: JSON.stringify({
               id: this.state.user.id
             })
